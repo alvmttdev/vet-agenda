@@ -2,20 +2,26 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-// Faz a ponte com o arquivo de banco de dados
+const app = express(); // ESSA LINHA É ESSENCIAL! Ela cria o seu servidor.
+
+// Middlewares
+app.use(cors());
+app.use(express.json()); // Isso aqui permite que o servidor entenda o JSON que enviamos no Body
+
+// Conexão com o banco (apenas para testar a conexão ao iniciar)
 require('./src/config/database');
 
-const app = express();
+// --- ROTAS ---
 
-app.use(cors());
-app.use(express.json());
+// Rotas de Profissionais
 const profissionalRoutes = require('./src/routes/profissionalRoutes');
 app.use('/api/profissionais', profissionalRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Bem-vindo a API da VetAgenda! O servidor esta funcionando.');
-});
+// Rotas de Clientes
+const clienteRoutes = require('./src/routes/clienteRoutes');
+app.use('/api/clientes', clienteRoutes);
 
+// --- INICIALIZAÇÃO ---
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Servidor a rodar com sucesso na porta ${PORT}`);
