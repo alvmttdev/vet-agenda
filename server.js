@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const app = express(); // ESSA LINHA É ESSENCIAL! Ela cria o seu servidor.
+const app = express(); 
 
 // Middlewares
 app.use(cors());
@@ -20,6 +20,10 @@ app.use('/api/profissionais', profissionalRoutes);
 // Rotas de Clientes
 const clienteRoutes = require('./src/routes/clienteRoutes');
 app.use('/api/clientes', clienteRoutes);
+
+// Rotas de Pets
+const petRoutes = require('./src/routes/petRoutes');
+app.use('/api/pets', petRoutes);
 
 // --- INICIALIZAÇÃO ---
 const PORT = process.env.PORT || 3001;
