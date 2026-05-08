@@ -9,6 +9,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+const profissionalRoutes = require('./src/routes/profissionalRoutes');
+app.use('/api/profissionais', profissionalRoutes);
 
 app.get('/', (req, res) => {
     res.send('Bem-vindo a API da VetAgenda! O servidor esta funcionando.');
